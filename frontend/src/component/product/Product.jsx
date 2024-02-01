@@ -77,7 +77,7 @@ const Product = ({ product }) => {
             <div className="product-card">
                 <div className="product-card-img">
                     <label className="stock bg-success">{product.Stock <= 0 ? "Out Of Stock" : "In Stock"}</label>
-                    <Link to={`product/${product._id}`} target='_blank'>
+                    <Link to={`product/${product._id}`}>
                         <img src={product.images[0].url} alt={product.name} />
                     </Link>
                 </div>

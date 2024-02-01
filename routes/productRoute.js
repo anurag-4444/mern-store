@@ -20,7 +20,7 @@ router.route("/admin/product/:id")
 router.get("/product/:id", getProductDetails)
 
 router.put("/review", isAuthenticated, createProductReview)
-
+ 
 router.route("/reviews")
     .get(getAllProductReviews)
     .delete(isAuthenticated, deleteProductReviews)

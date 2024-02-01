@@ -21,7 +21,6 @@ const ProductDetails = () => {
   const dispatch = useDispatch()
 
   const { product, status, error, isUpdated, ratingCounts } = useSelector((state) => (state.Product))
-  // console.log(ratingCounts[3]);
   useEffect(() => {
 
     dispatch(fetchProductDetail(id)).finally(() => dispatch(changeProductUpdate()))

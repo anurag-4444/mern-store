@@ -80,7 +80,7 @@ export const getAllProducts = catchAsyncError(async (req, res) => {
 
     
     const products = await apiFeatures.query
-    
+    // console.log(products);
     return res.status(200).json({
         success: true,
         products,

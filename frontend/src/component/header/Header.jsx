@@ -28,10 +28,6 @@ const Header = () => {
         dispatch(getProductFromWishlist()).finally(() => dispatch(changeIsUpdatedState()))
     }, [])
 
-    console.log(user, user.role);
-
-    // console.log('header');
-
     const [keywords, setKeywords] = useState("")
     const handleShowResult = (e) => {
         e.preventDefault()

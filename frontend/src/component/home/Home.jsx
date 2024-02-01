@@ -13,7 +13,6 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const dispatch = useDispatch()
   const { products, status, error, productCount, minPrice, maxPrice, filteredProductCount, applyFilter, keyword } = useSelector((state) => (state.Products))
-  // console.log(products);
   let comparePagination = productCount;
   if (productCount !== filteredProductCount) comparePagination = filteredProductCount;
 
