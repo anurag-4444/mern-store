@@ -8,7 +8,6 @@ import { AiFillStar } from 'react-icons/ai'
 import { fetchProfileDetails, logoutUser } from '../../store/slices/user'
 import { changeIsUpdateState, getProductToCart } from '../../store/slices/userCart'
 import { changeIsUpdatedState, getProductFromWishlist } from '../../store/slices/wishlistCart'
-// import { useNavigate } from "react-router-dom";
 
 const Header = () => {
     const dispatch = useDispatch()
@@ -17,20 +16,62 @@ const Header = () => {
     const { wishlist, error: wishlistError } = useSelector(state => state.Wishlist)
     const { cart, error: cartError } = useSelector(state => state.UserCart)
     const { isAuthenticated, user, error } = useSelector((state) => state.User)
+
+    console.log(isAuthenticated);
     // console.log(user);
     const navigate = useNavigate()
-    useEffect(() => {
-        dispatch(fetchProfileDetails()).finally(() => {
-            setIsLoading(false)
 
-        });
-        dispatch(getProductToCart()).finally(() => dispatch(changeIsUpdateState()))
-        dispatch(getProductFromWishlist()).finally(() => dispatch(changeIsUpdatedState()))
+    useEffect(() => {
+            dispatch(fetchProfileDetails()).finally(() => setIsLoading(false));
+            dispatch(getProductToCart()).finally(() => dispatch(changeIsUpdateState()));
+            dispatch(getProductFromWishlist()).finally(() => dispatch(changeIsUpdatedState()));
     }, [])
+
+    // useEffect(() => {
+    //     const checkAuthentication = async () => {
+    //         // Check if the user has a token in cookies
+    //         // const tokenFromCookies = document.cookie
+    //         //     .split('; ')
+    //         //     .find(row => row.startsWith('token='))
+    //         //     ?.split('=')[1];
+
+    //         // Check if the user has a token in local storage
+    //         // const tokenFromLocalStorage = localStorage.getItem('yourTokenKey');
+
+    //         const [cookies] = useCookies(['token']);
+
+    //         const token = cookies.token;
+    //         console.log(token);
+
+    //         if (token) {
+    //             // If token is present, try to fetch user details to verify authentication
+    //             try {
+    //                 dispatch(fetchProfileDetails()).finally(() => {
+    //                     setIsLoading(false)
+    //                     dispatch(getProductToCart()).finally(() => dispatch(changeIsUpdateState()));
+    //                     dispatch(getProductFromWishlist()).finally(() => dispatch(changeIsUpdatedState()));
+    //                 });
+    //                 // setIsLoading(false);
+    //             } catch (error) {
+    //                 // If fetching user details fails, the token might be invalid or expired
+    //                 // Handle this situation, you might want to clear the token and set isAuthenticated to false
+    //                 console.error('Error fetching user details:', error);
+    //                 dispatch(logoutUser()); // Clear token and set isAuthenticated to false
+    //                 setIsLoading(false);
+    //             }
+    //         } else {
+    //             // If no token is present, set isAuthenticated to false
+    //             setIsLoading(false);
+    //         }
+    //     };
+
+    //     checkAuthentication();
+    // }, []);
+
 
     const [keywords, setKeywords] = useState("")
     const handleShowResult = (e) => {
-        e.preventDefault()
+        e.preventDefault()  
         dispatch(searchChangeState(keywords))
     }
 
@@ -69,7 +110,7 @@ const Header = () => {
 
 
                             {isLoading === false && <>
-                                {isAuthenticated === false && error || wishlistError || cartError && <>
+                                {isAuthenticated === false && <>
                                     {/* <Link style={{ color: 'white' }} to="/auth/google">Login</Link> 
                                 <span>/</span> */}
                                     <button type="button" className="btn btn-primary me-1" style={{ backgroundColor: '#0000ff63' }} onClick={() => navigate('/auth/google')}>Login</button>

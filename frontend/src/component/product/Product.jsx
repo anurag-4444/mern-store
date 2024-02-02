@@ -9,7 +9,7 @@ import { toast, ToastContainer } from 'react-toastify'
 
 const Product = ({ product }) => {
 
-    const [showToast, setShowToast] = useState({ status: false, msg: '' });
+    const [showToast, setShowToast] = useState({ status: false, error: false, msg: '' });
     const dispatch = useDispatch()
     const { isAuthenticated, error } = useSelector(state => state.User)
     const navigate = useNavigate()
@@ -30,7 +30,7 @@ const Product = ({ product }) => {
                 setShowToast({ status: true, msg: 'Product Added to Cart.' });
             })
         else
-            navigate('/auth/google')
+            setShowToast({ status: true, msg: 'Login/Signup First', error: true });
     }
 
     const addWishlist = () => {
@@ -40,15 +40,15 @@ const Product = ({ product }) => {
                 setShowToast({ status: true, msg: 'Product Added to Wishlist.' });
             })
         else
-            navigate('/auth/google')
+            setShowToast({ status: true, msg: 'Login/Signup First', error: true });
     }
 
-    if (error) {
-        toast.error(`${error} !`, {
-            position: toast.POSITION.BOTTOM_CENTER
-        });
-        return <ToastContainer />
-    }
+    // if (error) {
+    //     toast.error(`${error} !`, {
+    //         position: toast.POSITION.BOTTOM_CENTER
+    //     });
+    //     return <ToastContainer />
+    // }
 
     return (<>
         <Toast
@@ -64,10 +64,16 @@ const Product = ({ product }) => {
             autohide
             delay={5000} // Auto-hide after 5 seconds
         >
-            <Toast.Header style={{ background: '#28a745', color: '#fff' }}>
-                <strong className="me-auto">Success</strong>
-            </Toast.Header>
-            <Toast.Body style={{ background: '#d4edda', color: '#155724' }}>
+            {showToast.error === false ? (
+                <Toast.Header style={{ background: '#28a745', color: '#fff' }}>
+                    <strong className="me-auto">Success</strong>
+                </Toast.Header>
+            ) : (
+                <Toast.Header style={{ background: '#dc3545', color: '#fff' }}>
+                    <strong className="me-auto">Failure</strong>
+                </Toast.Header>
+            )}
+            <Toast.Body style={{ background: showToast.error === false ? '#d4edda' : '#f8d7da', color: showToast.error === false ? '#155724' : '#721c24' }}>
                 {showToast.msg}
             </Toast.Body>
         </Toast>

@@ -70,7 +70,7 @@ const userWishlistSlice = createSlice({
             })
             .addCase(getProductFromWishlist.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.payload.message
+                // state.error = action.payload.message
             })
             .addCase(deleteProductFromWishlist.pending, (state) => {
                 state.status = 'loading';

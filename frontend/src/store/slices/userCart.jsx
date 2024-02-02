@@ -65,7 +65,7 @@ const userCartSlice = createSlice({
             })
             .addCase(getProductToCart.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.payload.message
+                // state.error = action.payload.message
             })
             .addCase(deleteProductToCart.pending, (state) => {
                 state.status = 'loading';

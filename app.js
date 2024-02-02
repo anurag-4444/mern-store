@@ -23,7 +23,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 // for uploading image
-app.use(bodyParser.urlencoded({ extended: true })) 
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(fileUpload())
 
 

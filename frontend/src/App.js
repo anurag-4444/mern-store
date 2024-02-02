@@ -13,9 +13,11 @@ import Checkout from './component/user/checkout/Checkout.jsx';
 import Payment from './component/user/payment/Payment.jsx';
 import Admin from './component/admin/Admin.jsx';
 import PageNotFound from './component/Page-NotFound/PageNotFound.jsx';
+import axios from 'axios';
 
 function App() {
 
+  axios.defaults.withCredentials = true;
 
   return (<>
     <Router>
