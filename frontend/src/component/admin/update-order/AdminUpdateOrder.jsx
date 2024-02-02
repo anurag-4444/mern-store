@@ -39,40 +39,40 @@ const AdminUpdateOrder = () => {
             {order && order.user &&
                 (<div className='col-md-9'>
 
-                    <div className="row">
+                    <div className="row p-1">
 
                         <div className="col-md-9">
 
-                            <div className="row mb-2" style={{ borderRadius: '20px', background: '#000000b5', color: 'white' }}>
+                            <div className="row mb-2" style={{ borderRadius: '20px', background: 'white' }}>
                                 <div className="col-md-12 pt-3">
-                                    <h3 className='p-2 ps-3' style={{ borderRadius: '50px', background: '#31316d' }}>Shipping Info</h3>
-                                    <p className='m-0 p-1 ps-3 mb-2' style={{ borderRadius: '50px', background: '#1f1f66' }}>Name: <span>{order.user.name}</span></p>
-                                    <p className='m-0 p-1 ps-3 mb-2' style={{ borderRadius: '50px', background: '#1f1f66' }}>Phone No: <span>{order.shippingInfo.phoneNo}</span> </p>
-                                    <p className='m-0 p-1 ps-3 mb-3' style={{ borderRadius: '50px', background: '#1f1f66' }}>Address: <span>{order.shippingInfo.address}, {order.shippingInfo.city}, {order.shippingInfo.state}</span> </p>
+                                    <h3 className='p-2 ps-3' style={{ borderRadius: '50px', background: 'rgb(222 222 222)' }}>Shipping Info</h3>
+                                    <p className='m-0 p-1 ps-3 mb-2' style={{ borderRadius: '50px', background: 'rgb(217 206 206)' }}>Name: <span>{order.user.name}</span></p>
+                                    <p className='m-0 p-1 ps-3 mb-2' style={{ borderRadius: '50px', background: 'rgb(217 206 206)' }}>Phone No: <span>{order.shippingInfo.phoneNo}</span> </p>
+                                    <p className='m-0 p-1 ps-3 mb-3' style={{ borderRadius: '50px', background: 'rgb(217 206 206)' }}>Address: <span>{order.shippingInfo.address}, {order.shippingInfo.city}, {order.shippingInfo.state}</span> </p>
                                 </div>
                             </div>
 
                             <div className="row mb-2" >
                                 <div className="col-6 p-0">
-                                    <div className='p-2 ps-3' style={{ borderRadius: '20px', background: '#000000b5', color: 'white' }}>
-                                        <h3 className='p-2 ps-3' style={{ borderRadius: '50px', background: '#31316d' }}>Payment</h3>
-                                        <p className='m-0 p-1 ps-3 mb-2' style={{ borderRadius: '50px', background: '#1f1f66' }}>Status: <span>PAID</span></p>
-                                        <p className='m-0 p-1 ps-3 mb-2' style={{ borderRadius: '50px', background: '#1f1f66' }}>Amount: <span>{order.totalPrice}</span> </p>
+                                    <div className='p-2 ps-3' style={{ borderRadius: '20px', background: 'white' }}>
+                                        <h3 className='p-2 ps-3' style={{ borderRadius: '50px', background: 'rgb(222 222 222)' }}>Payment</h3>
+                                        <p className='m-0 p-1 ps-3 mb-2' style={{ borderRadius: '50px', background: 'rgb(217 206 206)' }}>Status: <span>PAID</span></p>
+                                        <p className='m-0 p-1 ps-3 mb-2' style={{ borderRadius: '50px', background: 'rgb(217 206 206)' }}>Amount: <span>{order.totalPrice}</span> </p>
                                     </div>
                                 </div>
 
                                 <div className="col-6 pe-0">
-                                    <div className='p-2 ps-3' style={{ borderRadius: '20px', background: '#000000b5', color: 'white' }}>
-                                        <h3 className='p-2 ps-3' style={{ borderRadius: '50px', background: '#31316d' }}>Order Status</h3>
-                                        <p className='m-0 p-1 ps-3 mb-2' style={{ borderRadius: '50px', background: '#1f1f66' }}>Status: <span>{order.orderStatus}</span></p>
+                                    <div className='p-2 ps-3' style={{ borderRadius: '20px', background: 'white' }}>
+                                        <h3 className='p-2 ps-3' style={{ borderRadius: '50px', background: 'rgb(222 222 222)' }}>Order Status</h3>
+                                        <p className='m-0 p-1 ps-3 mb-2' style={{ borderRadius: '50px', background: 'rgb(217 206 206)' }}>Status: <span>{order.orderStatus}</span></p>
                                     </div>
                                 </div>
 
                             </div>
 
-                            <div className="row mb-2" style={{ borderRadius: '20px', background: '#000000b5', color: 'white' }}>
+                            <div className="row mb-2" style={{ borderRadius: '20px', background: 'white' }}>
                                 <div className="col-md-12 pt-3">
-                                    <h3 className='p-2 ps-3' style={{ borderRadius: '50px', background: '#31316d' }}>Your Cart Items</h3>
+                                    <h3 className='p-2 ps-3' style={{ borderRadius: '50px', background: 'rgb(222 222 222)' }}>Your Cart Items</h3>
                                     <div className="row overflow-x-auto">
 
                                         {order.orderItems.map((ele, idx) =>
@@ -88,10 +88,10 @@ const AdminUpdateOrder = () => {
                                                     </div>
                                                     <div className="col-7">
 
-                                                        <p className='m-0 mb-1 ps-2' style={{ background: 'rgb(49, 49, 109)', borderRadius: '20px' }}>{ele.name}</p>
-                                                        <p className='m-0 mb-1 ps-2' style={{ background: 'rgb(49, 49, 109)', borderRadius: '20px' }}>Price: {ele.price}</p>
-                                                        <p className='m-0 mb-1 ps-2' style={{ background: 'rgb(49, 49, 109)', borderRadius: '20px' }}>Quantity: {ele.quantity}</p>
-                                                        <p className='m-0 mb-1 ps-2' style={{ background: 'rgb(49, 49, 109)', borderRadius: '20px' }}>Net Price: {ele.price * ele.quantity}</p>
+                                                        <p className='m-0 mb-1 ps-2' style={{ background: 'rgb(217 206 206)', borderRadius: '20px' }}>{ele.name}</p>
+                                                        <p className='m-0 mb-1 ps-2' style={{ background: 'rgb(217 206 206)', borderRadius: '20px' }}>Price: {ele.price}</p>
+                                                        <p className='m-0 mb-1 ps-2' style={{ background: 'rgb(217 206 206)', borderRadius: '20px' }}>Quantity: {ele.quantity}</p>
+                                                        <p className='m-0 mb-1 ps-2' style={{ background: 'rgb(217 206 206)', borderRadius: '20px' }}>Net Price: {ele.price * ele.quantity}</p>
                                                     </div>
                                                 </div>
 

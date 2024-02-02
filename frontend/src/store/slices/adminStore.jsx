@@ -1,6 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const adminFetchProfileDetails = createAsyncThunk(
+  'user/adminFetchDetails',
+  async () => {
+    const link = `${window.location.origin}/api/v1/me`
+    const response = await axios.get(link);
+    return response.data;
+  }
+);
+
 export const adminFetchAllProducts = createAsyncThunk(
   'products/adminFetchAll',
   async (args) => {
@@ -156,7 +165,7 @@ export const adminDeleteReview = createAsyncThunk(
 
 const adminProductSlice = createSlice({
   name: "Products",
-  initialState: { products: [], product: {}, ratingCounts: {}, orders: [], reviews: [], users: [], order: {}, totalAmount: 0, status: 'idle', error: null, productCount: 0, keyword: "", minPrice: 0, maxPrice: 25000, filteredProductCount: 0, activeFilters: {}, applyFilter: {}, loading: false },
+  initialState: { user: {}, products: [], product: {}, ratingCounts: {}, orders: [], reviews: [], users: [], order: {}, totalAmount: 0, status: 'idle', error: null, productCount: 0, keyword: "", minPrice: 0, maxPrice: 25000, filteredProductCount: 0, activeFilters: {}, applyFilter: {}, loading: false },
 
   reducers: {
     priceChangeState: (state, action) => {
@@ -201,6 +210,17 @@ const adminProductSlice = createSlice({
 
   extraReducers(builder) {
     builder
+      .addCase(adminFetchProfileDetails.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(adminFetchProfileDetails.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.user = action.payload.user
+      })
+      .addCase(adminFetchProfileDetails.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
       .addCase(adminFetchAllProducts.pending, (state) => {
         state.status = 'loading';
       })

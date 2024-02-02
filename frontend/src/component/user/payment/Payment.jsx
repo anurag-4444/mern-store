@@ -53,7 +53,7 @@ const Payment = () => {
         <>
         <MetaData title={`Your Payment`} />
             <Toast
-                show={showToast.status}
+                show={paymentToast.status}
                 onClose={() => setShowToast({ status: false, msg: '' })}
                 style={{
                     position: 'fixed',

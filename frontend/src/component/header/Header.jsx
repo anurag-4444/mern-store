@@ -86,7 +86,7 @@ const Header = () => {
                 <div className="container-fluid">
                     <div className="row">
 
-                        <div className="col-md-2 col-sm-3 col-6 d-flex align-items-center">
+                        <div className="col-md-2 mb-1 col-sm-3 col-6 d-flex align-items-center">
                             <h5 className="brand-name m-0">Ecommerce</h5>
                         </div>
 
@@ -106,7 +106,7 @@ const Header = () => {
                             </form>
                         </div>
 
-                        <div className="col-md-5 col-sm-3 col-6 d-flex align-items-center justify-content-end">
+                        <div className="col-md-5 mb-1 col-sm-3 col-6 d-flex align-items-center justify-content-end">
 
 
                             {isLoading === false && <>
