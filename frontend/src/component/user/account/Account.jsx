@@ -75,7 +75,7 @@ const Account = () => {
     }
 
     const updateName = () => {
-        if (userName.length > 4) {
+        if (userName.length > 3) {
             dispatch(updateUserName({ userName })).finally(() => {
                 if (errorAfterUpdation) {
                     setShowToast({ status: true, msg: errorAfterUpdation, error: true });
@@ -84,7 +84,7 @@ const Account = () => {
                 }
             })
         } else {
-            setShowToast({ status: true, msg: 'Name should have more than 4 characters', error: true });
+            setShowToast({ status: true, msg: 'Name should have more than 3 characters', error: true });
         }
     }
 

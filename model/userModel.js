@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please Enter Your Name"],
         maxLength: [30, "Name cannot exceed 30 characters"],
-        minLength: [4, "Name should have more than 4 characters"],
+        minLength: [3, "Name should have more than 3 characters"],
     },
     email: {
         type: String,
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: "user"
+        default: "admin"
     },
     // This is not strictly necessary, but if you want to manually define it:
     createdAt: {
