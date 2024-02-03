@@ -14,10 +14,20 @@ import Payment from './component/user/payment/Payment.jsx';
 import Admin from './component/admin/Admin.jsx';
 import PageNotFound from './component/Page-NotFound/PageNotFound.jsx';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProfileDetails } from './store/slices/user.jsx';
+import UnauthorizedAccess from './component/unauthorized/UnauthorizedAccess.jsx';
+import { useEffect } from 'react';
 
 function App() {
 
+  const dispatch = useDispatch()
   axios.defaults.withCredentials = true;
+  const { isAuthenticated, user } = useSelector((state) => state.User)
+
+  useEffect(() => {
+    dispatch(fetchProfileDetails())
+  }, [])
 
   return (<>
     <Router>
@@ -35,7 +45,18 @@ function App() {
           <Route path='/mycart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/payment' element={<Payment />} />
-          <Route path='/admin/*' element={<Admin />} />
+
+          {isAuthenticated ? (
+            user.role === "admin" ? (
+              <Route path='/admin/*' element={<Admin />} />
+            ) : (
+              <Route path='/admin/*' element={<UnauthorizedAccess />} />
+            )
+          ) : (
+            <Route path='/admin/*' element={<UnauthorizedAccess />} />
+          )}
+
+          <Route path='/*' element={<PageNotFound />} />
           <Route path='/*' element={<PageNotFound />} />
         </Routes>
 

@@ -91,7 +91,7 @@ const ProductDetails = () => {
   }
 
   return (<>
-  <MetaData title={`${product.name}`} />
+    <MetaData title={`${product.name}`} />
 
     <Toast
       show={showToast.status}
@@ -173,7 +173,7 @@ const ProductDetails = () => {
                   </div>
                 </div>
 
-                <div className="col-md-10 main-image-outer" id='main-image-container'>
+                <div className="col-md-10 main-image-outer" id='main-image-container' style={{ maxHeight: '276px' }}>
                   <img src={product.images[0].url} className="w-100 h-100" alt="Img" id="main-image" style={{ width: '100%' }} />
                 </div>
 
@@ -189,7 +189,7 @@ const ProductDetails = () => {
                       })}
 
                     </div>
-                    <div className="carousel-inner">
+                    <div className="carousel-inner" style={{ maxHeight: '376px' }}>
                       <div className="carousel-item active">
                         <img key={0} src={product.images[0].url} alt="..." className="d-block w-100" />
                       </div>
@@ -264,47 +264,48 @@ const ProductDetails = () => {
           </div>
 
           <div className="row">
-            <div className="col-4">
+
+            <div className="col-md-4 col-sm-5 col-12">
               <div className="row">
 
-                <div className="col-12 d-flex align-items-center gap-2 ">  <Rating
+                <div className="col-12 d-flex align-items-center gap-2 justify-content-center">  <Rating
                   count={5}
                   value={ratingCounts[5] ? 5 : 0}
                   size={32}
                   edit={false}
-                /> <span>{ratingCounts[5] ? ratingCounts[5] : ''}</span> </div>
+                /> <span>{ratingCounts[5] ? ratingCounts[5] : 0}</span> </div>
 
-                <div className="col-12 d-flex align-items-center gap-2"><Rating
+                <div className="col-12 d-flex align-items-center gap-2 justify-content-center"><Rating
                   count={5}
                   value={ratingCounts[4] ? 4 : 0}
                   size={32}
                   edit={false}
-                /><span>{ratingCounts[4] ? ratingCounts[4] : ''}</span></div>
+                /><span>{ratingCounts[4] ? ratingCounts[4] : 0}</span></div>
 
-                <div className="col-12 d-flex align-items-center gap-2"><Rating
+                <div className="col-12 d-flex align-items-center gap-2 justify-content-center"><Rating
                   count={5}
                   value={ratingCounts[3] ? 3 : 0}
                   size={32}
                   edit={false}
-                /><span>{ratingCounts[3] ? ratingCounts[3] : ''}</span></div>
+                /><span>{ratingCounts[3] ? ratingCounts[3] : 0}</span></div>
 
-                <div className="col-12 d-flex align-items-center gap-2"><Rating
+                <div className="col-12 d-flex align-items-center gap-2 justify-content-center"><Rating
                   count={5}
                   value={ratingCounts[2] ? 2 : 0}
                   size={32}
                   edit={false}
-                /><span>{ratingCounts[2] ? ratingCounts[2] : ''}</span></div>
+                /><span>{ratingCounts[2] ? ratingCounts[2] : 0}</span></div>
 
-                <div className="col-12 d-flex align-items-center gap-2"><Rating
+                <div className="col-12 d-flex align-items-center gap-2 justify-content-center"><Rating
                   count={5}
                   value={ratingCounts[1] ? 1 : 0}
                   size={32}
                   edit={false}
-                /><span>{ratingCounts[1] ? ratingCounts[1] : ''}</span></div>
+                /><span>{ratingCounts[1] ? ratingCounts[1] : 0}</span></div>
 
               </div>
             </div>
-            <div className="col-8">
+            <div className="col-md-8 col-sm-7 col-12">
               {product.reviews.length > 0 && <h2>Reviews</h2>}
 
               {product.reviews && product.reviews.slice(0, visibleReviews).map((review, index) => (

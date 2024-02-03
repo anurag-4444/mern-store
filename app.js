@@ -44,7 +44,7 @@ app.use("/api/v1", wishlist)
 const absolutePath = path.resolve(__dirname, "frontend", "build");
 
 app.use(express.static(absolutePath));
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
     res.sendFile(path.join(absolutePath, "index.html"));
 });
 

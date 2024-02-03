@@ -54,6 +54,7 @@ const userSlice = createSlice({
                 state.user.avatar = action.payload.user.avatar.url
                 state.user.name = action.payload.user.name
                 state.user.email = action.payload.user.email
+                state.user.role = action.payload.user.role
                 state.isAuthenticated = true
             })
             .addCase(fetchUserProfile.rejected, (state, action) => {
