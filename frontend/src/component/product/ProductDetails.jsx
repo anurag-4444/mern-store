@@ -5,10 +5,11 @@ import { changeProductUpdate, fetchProductDetail, postReviewOfProduct } from '..
 import ReactStars from 'react-rating-stars-component'
 import ReviewCard from '../productCard/ReviewCard.jsx'
 import { ToastContainer, toast } from 'react-toastify'
-import { IoIosWallet } from 'react-icons/io'
 import Rating from 'react-rating-stars-component';
 import { Toast } from 'react-bootstrap';
 import MetaData from '../MetaData.jsx'
+import { addProductToCart } from '../../store/slices/userCart.jsx'
+import { addProductToWishlist } from '../../store/slices/wishlistCart.jsx'
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
@@ -21,11 +22,31 @@ const ProductDetails = () => {
   const dispatch = useDispatch()
 
   const { product, status, error, isUpdated, ratingCounts } = useSelector((state) => (state.Product))
+  const { isAuthenticated } = useSelector(state => state.User)
+
   useEffect(() => {
-
     dispatch(fetchProductDetail(id)).finally(() => dispatch(changeProductUpdate()))
-
   }, [dispatch, isUpdated])
+
+  const addToCart = () => {
+
+    if (isAuthenticated)
+      dispatch(addProductToCart({ productId: product._id })).finally(() => {
+        setShowToast({ status: true, msg: 'Product Added to Cart.', error: false });
+      })
+    else
+      setShowToast({ status: true, msg: 'Login/Signup First', error: true });
+  }
+
+  const addWishlist = () => {
+
+    if (isAuthenticated)
+      dispatch(addProductToWishlist({ productId: product._id })).finally(() => {
+        setShowToast({ status: true, msg: 'Product Added to Wishlist.', error: false });
+      })
+    else
+      setShowToast({ status: true, msg: 'Login/Signup First', error: true });
+  }
 
   const postReview = () => {
     setComment("")
@@ -244,10 +265,10 @@ const ProductDetails = () => {
                   </div>
                 </div>
                 <div className="mt-2">
-                  <a href="" className="btn btn1"> <i className="fa fa-shopping-cart"></i> Add To Cart</a>
-                  <a href="" className="btn btn1"> <i className="fa fa-heart"></i> Add To Wishlist </a>
+                  <a href="#" className="btn btn1" onClick={() => (addToCart())}> <i className="fa fa-shopping-cart"></i> Add To Cart</a>
+                  <a href="#" className="btn btn1" onClick={() => (addWishlist())}> <i className="fa fa-heart"></i> Add To Wishlist </a>
                   <br />
-                  <a href="" className="btn buy-btn"> <IoIosWallet /> Buy Now </a>
+                  {/* <a href="" className="btn buy-btn"> <IoIosWallet /> Buy Now </a> */}
                   <button type="button" class="btn" id='post-review' data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Post Review
                   </button>

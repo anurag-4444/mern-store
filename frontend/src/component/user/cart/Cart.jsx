@@ -54,7 +54,7 @@ const Cart = () => {
 
     return (
         <>
-        <MetaData title={`Your Cart`} />
+            <MetaData title={`Your Cart`} />
 
             <Toast
                 show={showToast.status}
@@ -148,19 +148,19 @@ const Cart = () => {
                             </div>
 
                             <div className="col-lg-3">
-                                <div className="card mb-3 border shadow-0">
-                                    {/* <div className="card-body">
-                                    <form>
-                                        <div className="form-group">
-                                            <label className="form-label">Have coupon?</label>
-                                            <div className="input-group">
-                                                <input type="text" className="form-control border" name="" placeholder="Coupon code" />
-                                                <button className="btn btn-light border">Apply</button>
+                                {/* <div className="card mb-3 border shadow-0">
+                                    <div className="card-body">
+                                        <form>
+                                            <div className="form-group">
+                                                <label className="form-label">Have coupon?</label>
+                                                <div className="input-group">
+                                                    <input type="text" className="form-control border" name="" placeholder="Coupon code" maxLength={6} />
+                                                    <button className="btn btn-light border" onClick={() => setShowToast({ status: true, msg: 'Applied Successfully', error: false })}>Apply</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div> */}
-                                </div>
                                 <div className="card shadow-0 border">
                                     <div className="card-body">
                                         <div className="d-flex justify-content-between">

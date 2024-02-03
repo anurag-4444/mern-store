@@ -74,7 +74,7 @@ const Wishlist = () => {
                 </div></div> : !wishlist.length ? <NotAvailable message={'Oops! The Orders is currently not available.'} /> : <section className="bg-light my-5">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-9">
+                            <div className="col-lg-12">
                                 <div className="card border shadow-0">
                                     <div className="m-4">
                                         <h4 className="card-title mb-4">Your shopping cart</h4>
@@ -126,15 +126,15 @@ const Wishlist = () => {
                                 </div>
                             </div>
 
-                            <div className="col-lg-3">
+                            {/* <div className="col-lg-3">
                                 <div className="card mb-3 border shadow-0">
                                     <div className="card-body">
                                         <form>
                                             <div className="form-group">
                                                 <label className="form-label">Have coupon?</label>
                                                 <div className="input-group">
-                                                    <input type="text" className="form-control border" name="" placeholder="Coupon code" />
-                                                    <button className="btn btn-light border">Apply</button>
+                                                    <input type="text" className="form-control border" name="" placeholder="Coupon code" maxLength={6} />
+                                                    <button className="btn btn-light border" onClick={() => setShowToast({ status: true, msg: 'Applied Successfully', error: false })}>Apply</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -166,7 +166,8 @@ const Wishlist = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
+                            
                         </div>
                     </div>
                 </section>}

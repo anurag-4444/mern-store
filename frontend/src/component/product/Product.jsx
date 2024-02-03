@@ -5,13 +5,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { addProductToCart } from '../../store/slices/userCart'
 import { addProductToWishlist } from '../../store/slices/wishlistCart'
 import { Toast } from 'react-bootstrap';
-import { toast, ToastContainer } from 'react-toastify'
 
 const Product = ({ product }) => {
 
     const [showToast, setShowToast] = useState({ status: false, error: false, msg: '' });
     const dispatch = useDispatch()
-    const { isAuthenticated, error } = useSelector(state => state.User)
+    const { isAuthenticated } = useSelector(state => state.User)
     const navigate = useNavigate()
 
     const options = {
@@ -27,7 +26,7 @@ const Product = ({ product }) => {
 
         if (isAuthenticated)
             dispatch(addProductToCart({ productId: product._id })).finally(() => {
-                setShowToast({ status: true, msg: 'Product Added to Cart.' });
+                setShowToast({ status: true, msg: 'Product Added to Cart.', error: false });
             })
         else
             setShowToast({ status: true, msg: 'Login/Signup First', error: true });
@@ -37,7 +36,7 @@ const Product = ({ product }) => {
 
         if (isAuthenticated)
             dispatch(addProductToWishlist({ productId: product._id })).finally(() => {
-                setShowToast({ status: true, msg: 'Product Added to Wishlist.' });
+                setShowToast({ status: true, msg: 'Product Added to Wishlist.', error: false });
             })
         else
             setShowToast({ status: true, msg: 'Login/Signup First', error: true });

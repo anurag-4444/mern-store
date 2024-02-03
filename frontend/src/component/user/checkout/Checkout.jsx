@@ -17,14 +17,14 @@ const Checkout = () => {
     const [city, setCity] = useState('')
     const [postalCode, setPostalCode] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [showToast, setShowToast] = useState({ status: false, msg: '' });
+    const [showToast, setShowToast] = useState({ status: false, error: false, msg: '' });
     const [address, setAddress] = useState('')
     const [message, setMessage] = useState('')
 
     const navigate = useNavigate()
 
     const { cart } = useSelector(state => state.UserCart)
-    const { shippingCost, productPrice, order, totalPrice } = useSelector(state => state.UserOrder)
+    const { shippingCost, productPrice, order, totalPrice, error } = useSelector(state => state.UserOrder)
 
     const dispatch = useDispatch()
 
@@ -63,29 +63,29 @@ const Checkout = () => {
 
         if (phoneNumber.length !== 10) {
             // console.log(phoneNumber.length);
-            setShowToast({ status: true, msg: 'Invalid phone number. Please enter a 10-digit number.' });
+            setShowToast({ status: true, msg: 'Invalid phone number. Please enter a 10-digit number.', error: true });
             return
         }
 
         if (address.length <= 5) {
-            setShowToast({ status: true, msg: 'Address must be at least 6 characters long' })
+            setShowToast({ status: true, msg: 'Address must be at least 6 characters long', error: true })
             return
         }
         if (country.length === 0) {
-            setShowToast({ status: true, msg: 'Please Select the Country' })
+            setShowToast({ status: true, msg: 'Please Select the Country', error: true })
             return
         }
         if (state.length === 0) {
-            setShowToast({ status: true, msg: 'Please Select the State' })
+            setShowToast({ status: true, msg: 'Please Select the State', error: true })
             return
         }
         if (city.length === 0) {
-            setShowToast({ status: true, msg: 'Please Select the City' })
+            setShowToast({ status: true, msg: 'Please Select the City', error: true })
             return
         }
 
         if (postalCode.length !== 6) {
-            setShowToast({ status: true, msg: 'Postal Code should be 6-digit number' })
+            setShowToast({ status: true, msg: 'Postal Code should be 6-digit number', error: true })
             return
         }
 
@@ -104,14 +104,19 @@ const Checkout = () => {
             itemsPrice: productPrice,
             shippingPrice: shippingCost,
             totalPrice
-        }))
-        navigate('/payment')
+        })).finally(() => {
+            if (error)
+                setShowToast({ status: true, msg: 'Purchased Failed, try again!', error: true })
+            else
+                setShowToast({ status: true, msg: 'Purchased Successfully', error: false })
+        })
+
 
     };
 
     return (
         <>
-        <MetaData title={`Checkout Page`} />
+            <MetaData title={`Checkout Page`} />
             <Toast
                 show={showToast.status}
                 onClose={() => setShowToast({ status: false, msg: '' })}
@@ -125,29 +130,31 @@ const Checkout = () => {
                 autohide
                 delay={5000} // Auto-hide after 5 seconds
             >
-                <Toast.Header style={{ background: '#dc3545', color: '#fff' }}>
-                    <strong className="me-auto">Error</strong>
-                </Toast.Header>
-                <Toast.Body style={{ background: '#f8d7da', color: '#721c24' }}>
+                {showToast.error === false ? (
+                    <Toast.Header style={{ background: '#28a745', color: '#fff' }}>
+                        <strong className="me-auto">Success</strong>
+                    </Toast.Header>
+                ) : (
+                    <Toast.Header style={{ background: '#dc3545', color: '#fff' }}>
+                        <strong className="me-auto">Failure</strong>
+                    </Toast.Header>
+                )}
+                <Toast.Body style={{ background: showToast.error === false ? '#d4edda' : '#f8d7da', color: showToast.error === false ? '#155724' : '#721c24' }}>
                     {showToast.msg}
                 </Toast.Body>
             </Toast>
-
-
-
-           
 
             <section className="bg-light py-5">
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-8 col-lg-8 mb-4">
-                            
+
 
                             <div className="card shadow-0 border">
                                 <div className="p-4">
                                     <h5 className="card-title mb-3">Guest checkout</h5>
                                     <div className="row">
-                                        
+
                                         <div className="col-6 mb-3">
                                             <p className="mb-0">Phone No.</p>
                                             <div className="form-outline">
@@ -162,7 +169,7 @@ const Checkout = () => {
                                             </div>
                                         </div>
 
-                                        
+
                                     </div>
 
                                     <div className="form-check">
@@ -174,7 +181,7 @@ const Checkout = () => {
 
                                     <h5 className="card-title mb-3">Shipping info</h5>
 
-                                   
+
 
                                     <div className="row">
                                         <div className="col-sm-8 mb-3">
@@ -208,7 +215,7 @@ const Checkout = () => {
                                             </select>
                                         </div>
 
-                                       
+
 
                                         <div className="col-sm-4 col-6 mb-3">
                                             <p className="mb-0">Postal code</p>
@@ -226,7 +233,7 @@ const Checkout = () => {
                                             </div>
                                         </div>
 
-                                       
+
                                     </div>
 
                                     {/* <div className="form-check mb-3">

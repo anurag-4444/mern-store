@@ -17,14 +17,14 @@ const Header = () => {
     const { cart, error: cartError } = useSelector(state => state.UserCart)
     const { isAuthenticated, user, error } = useSelector((state) => state.User)
 
-    console.log(isAuthenticated);
+    // console.log(isAuthenticated);
     // console.log(user);
     const navigate = useNavigate()
 
     useEffect(() => {
-            dispatch(fetchProfileDetails()).finally(() => setIsLoading(false));
-            dispatch(getProductToCart()).finally(() => dispatch(changeIsUpdateState()));
-            dispatch(getProductFromWishlist()).finally(() => dispatch(changeIsUpdatedState()));
+        dispatch(fetchProfileDetails()).finally(() => setIsLoading(false));
+        dispatch(getProductToCart()).finally(() => dispatch(changeIsUpdateState()));
+        dispatch(getProductFromWishlist()).finally(() => dispatch(changeIsUpdatedState()));
     }, [])
 
     // useEffect(() => {
@@ -71,7 +71,7 @@ const Header = () => {
 
     const [keywords, setKeywords] = useState("")
     const handleShowResult = (e) => {
-        e.preventDefault()  
+        e.preventDefault()
         dispatch(searchChangeState(keywords))
     }
 
@@ -87,7 +87,7 @@ const Header = () => {
                     <div className="row">
 
                         <div className="col-md-2 mb-1 col-sm-3 col-6 d-flex align-items-center">
-                            <h5 className="brand-name m-0">Ecommerce</h5>
+                            <h5 className="brand-name m-0" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>Ecommerce</h5>
                         </div>
 
                         <div className="col-md-5 col-sm-6 col-12 my-auto d-none d-sm-block">
@@ -121,7 +121,7 @@ const Header = () => {
                                 {/* <!-- Icon --> */}
                                 {isAuthenticated === true && user && <> <div style={{ position: 'relative' }}>
 
-                                    <Link className="text-reset me-3" to="/wishlist">
+                                    <Link className="text-reset me-3" to="/mycart">
                                         <i className="fas fa-shopping-cart"></i>
                                     </Link>
                                     <span className="badge rounded-pill badge-notification bg-danger wishlist-number">{cart.length}</span>
@@ -130,7 +130,7 @@ const Header = () => {
                                     <div className="dropdown wishlist">
                                         <Link
                                             className="text-reset me-3  hidden-arrow"
-                                            to="/mycart"
+                                            to="/wishlist"
                                             id="navbarDropdownMenuLink"
                                             role="button"
                                             data-mdb-toggle="dropdown"
@@ -208,7 +208,7 @@ const Header = () => {
             </div>
             <nav className="navbar navbar-expand-lg" style={{ backgroundColor: 'orange' }}>
                 <div className="container-fluid">
-                    <a className="navbar-brand d-block d-sm-block d-md-none d-lg-none" href="/">
+                    <a className="navbar-brand d-block d-sm-block d-md-none d-lg-none" href="/" style={{ cursor: 'pointer' }}>
                         Ecommerce
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
