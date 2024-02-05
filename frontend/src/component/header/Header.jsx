@@ -9,23 +9,24 @@ import { fetchProfileDetails, logoutUser } from '../../store/slices/user'
 import { changeIsUpdateState, getProductToCart } from '../../store/slices/userCart'
 import { changeIsUpdatedState, getProductFromWishlist } from '../../store/slices/wishlistCart'
 
-const Header = () => {
+const Header = ({ isAuthenticated, user }) => {
     const dispatch = useDispatch()
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
 
     const { wishlist, error: wishlistError } = useSelector(state => state.Wishlist)
     const { cart, error: cartError } = useSelector(state => state.UserCart)
-    const { isAuthenticated, user, error } = useSelector((state) => state.User)
-
-    // console.log(isAuthenticated);
-    // console.log(user);
+    // const { isAuthenticated, user, error } = useSelector((state) => state.User)
+  
+    
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(fetchProfileDetails()).finally(() => setIsLoading(false));
-        dispatch(getProductToCart()).finally(() => dispatch(changeIsUpdateState()));
-        dispatch(getProductFromWishlist()).finally(() => dispatch(changeIsUpdatedState()));
-    }, [])
+        // dispatch(fetchProfileDetails()).finally(() => setIsLoading(false));
+        if (isAuthenticated) {
+            dispatch(getProductToCart()).finally(() => dispatch(changeIsUpdateState()));
+            dispatch(getProductFromWishlist()).finally(() => dispatch(changeIsUpdatedState()));
+        }
+    }, [isAuthenticated])
 
     // useEffect(() => {
     //     const checkAuthentication = async () => {
@@ -109,81 +110,79 @@ const Header = () => {
                         <div className="col-md-5 mb-1 col-sm-3 col-6 d-flex align-items-center justify-content-end">
 
 
-                            {isLoading === false && <>
-                                {isAuthenticated === false && <>
-                                    {/* <Link style={{ color: 'white' }} to="/auth/google">Login</Link> 
+                            {isAuthenticated === false && <>
+                                {/* <Link style={{ color: 'white' }} to="/auth/google">Login</Link> 
                                 <span>/</span> */}
-                                    <button type="button" className="btn btn-primary me-1" style={{ backgroundColor: '#0000ff63' }} onClick={() => navigate('/auth/google')}>Login</button>
-                                    <button type="button" className="btn btn-primary" style={{ backgroundColor: '#0000ff63' }} onClick={() => navigate('/auth/google')}>SignUp</button>
-                                    {/* <Link style={{ color: 'white' }} to="/auth/google">SignUp</Link> */}
-                                </>}
+                                <button type="button" className="btn btn-primary me-1" style={{ backgroundColor: '#0000ff63' }} onClick={() => navigate('/auth/google')}>Login</button>
+                                <button type="button" className="btn btn-primary" style={{ backgroundColor: '#0000ff63' }} onClick={() => navigate('/auth/google')}>SignUp</button>
+                                {/* <Link style={{ color: 'white' }} to="/auth/google">SignUp</Link> */}
+                            </>}
 
-                                {/* <!-- Icon --> */}
-                                {isAuthenticated === true && user && <> <div style={{ position: 'relative' }}>
+                            {/* <!-- Icon --> */}
+                            {isAuthenticated === true && user && <> <div style={{ position: 'relative' }}>
 
-                                    <Link className="text-reset me-3" to="/mycart">
-                                        <i className="fas fa-shopping-cart"></i>
+                                <Link className="text-reset me-3" to="/mycart">
+                                    <i className="fas fa-shopping-cart"></i>
+                                </Link>
+                                <span className="badge rounded-pill badge-notification bg-danger wishlist-number">{cart.length}</span>
+                            </div>
+
+                                <div className="dropdown wishlist">
+                                    <Link
+                                        className="text-reset me-3  hidden-arrow"
+                                        to="/wishlist"
+                                        id="navbarDropdownMenuLink"
+                                        role="button"
+                                        data-mdb-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <AiFillStar />
+                                        <span className="badge rounded-pill badge-notification bg-danger wishlist-number">{wishlist.length}</span>
                                     </Link>
-                                    <span className="badge rounded-pill badge-notification bg-danger wishlist-number">{cart.length}</span>
+
                                 </div>
 
-                                    <div className="dropdown wishlist">
-                                        <Link
-                                            className="text-reset me-3  hidden-arrow"
-                                            to="/wishlist"
-                                            id="navbarDropdownMenuLink"
-                                            role="button"
-                                            data-mdb-toggle="dropdown"
-                                            aria-expanded="false"
-                                        >
-                                            <AiFillStar />
-                                            <span className="badge rounded-pill badge-notification bg-danger wishlist-number">{wishlist.length}</span>
-                                        </Link>
+                                <div className="dropdown">
 
-                                    </div>
-
-                                    <div className="dropdown">
-
-                                        <a
-                                            className="dropdown-toggle d-flex align-items-center hidden-arrow"
-                                            href="/"
-                                            id="navbarDropdownMenuAvatar"
-                                            role="button"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                            style={{ color: 'blue' }}
-                                        >
-                                            <img
-                                                src={user.avatar}
-                                                className="rounded-circle"
-                                                height="25"
-                                                alt="Black and White Portrait of a Man"
-                                                style={{
-                                                    width: '25px',
-                                                    height: '25px',
-                                                    objectFit: 'cover'
-                                                }}
-                                                loading="lazy"
-                                            />
+                                    <a
+                                        className="dropdown-toggle d-flex align-items-center hidden-arrow"
+                                        href="/"
+                                        id="navbarDropdownMenuAvatar"
+                                        role="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                        style={{ color: 'blue' }}
+                                    >
+                                        <img
+                                            src={user.avatar}
+                                            className="rounded-circle"
+                                            height="25"
+                                            alt="Black and White Portrait of a Man"
+                                            style={{
+                                                width: '25px',
+                                                height: '25px',
+                                                objectFit: 'cover'
+                                            }}
+                                            loading="lazy"
+                                        />
 
 
-                                        </a>
-                                        <ul
-                                            className="dropdown-menu dropdown-menu-end"
-                                            aria-labelledby="navbarDropdownMenuAvatar"
-                                        >
-                                            <li><Link className="dropdown-item" to="/account"><i className="fa fa-user"></i> Profile</Link></li>
-                                            <li><Link className="dropdown-item" to="/myorders"><i className="fa fa-list"></i> My Orders</Link></li>
-                                            <li><Link className="dropdown-item" to="/wishlist   "><i className="fa fa-heart"></i> My Wishlist</Link></li>
-                                            <li><Link className="dropdown-item" to="/mycart"><i className="fa fa-shopping-cart"></i> My Cart</Link></li>
-                                            <li><Link className="dropdown-item" to="/" onClick={() => (userLogout())}><i className="fa fa-sign-out"></i> Logout</Link></li>
-                                            {isAuthenticated && user && user.role === "admin" && <li><Link className="dropdown-item" to="/admin"><i className="fa fa-sign-out"></i> Admin</Link></li>}
-                                            {/* <li><Link className="dropdown-item" to="/checkout" ><i className="fa fa-sign-out"></i> Checkout</Link></li> */}
-                                            {/* <li><Link className="dropdown-item" to="/payment" ><i className="fa fa-sign-out"></i> Payment</Link></li> */}
-                                        </ul>
+                                    </a>
+                                    <ul
+                                        className="dropdown-menu dropdown-menu-end"
+                                        aria-labelledby="navbarDropdownMenuAvatar"
+                                    >
+                                        <li><Link className="dropdown-item" to="/account"><i className="fa fa-user"></i> Profile</Link></li>
+                                        <li><Link className="dropdown-item" to="/myorders"><i className="fa fa-list"></i> My Orders</Link></li>
+                                        <li><Link className="dropdown-item" to="/wishlist   "><i className="fa fa-heart"></i> My Wishlist</Link></li>
+                                        <li><Link className="dropdown-item" to="/mycart"><i className="fa fa-shopping-cart"></i> My Cart</Link></li>
+                                        <li><Link className="dropdown-item" to="/" onClick={() => (userLogout())}><i className="fa fa-sign-out"></i> Logout</Link></li>
+                                        {isAuthenticated && user && user.role === "admin" && <li><Link className="dropdown-item" to="/admin"><i className="fa fa-sign-out"></i> Admin</Link></li>}
+                                        {/* <li><Link className="dropdown-item" to="/checkout" ><i className="fa fa-sign-out"></i> Checkout</Link></li> */}
+                                        {/* <li><Link className="dropdown-item" to="/payment" ><i className="fa fa-sign-out"></i> Payment</Link></li> */}
+                                    </ul>
 
-                                    </div></>}
-                            </>}
+                                </div></>}
 
                         </div>
 

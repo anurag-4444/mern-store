@@ -23,23 +23,57 @@ const Product = ({ product }) => {
     }
 
     const addToCart = () => {
-
-        if (isAuthenticated)
+        if (isAuthenticated) {
+            // Dispatch action to add product to cart
             dispatch(addProductToCart({ productId: product._id })).finally(() => {
                 setShowToast({ status: true, msg: 'Product Added to Cart.', error: false });
-            })
-        else
-            setShowToast({ status: true, msg: 'Login/Signup First', error: true });
-    }
+            });
+        } else {
+            // Retrieve existing products from localStorage
+            const existingProducts = JSON.parse(localStorage.getItem('temporaryCart')) || [];
+
+            // Check if the product already exists in localStorage
+            const existingProduct = existingProducts.find((p) => p.productId === product._id);
+
+            if (existingProduct) {
+                // Update the quantity or take other actions as needed
+                existingProduct.quantity += 1;
+            } else {
+                // Add the product to localStorage
+                existingProducts.push({ productId: product._id, quantity: 1 });
+            }
+
+            // Update localStorage
+            localStorage.setItem('temporaryCart', JSON.stringify(existingProducts));
+
+            setShowToast({ status: true, msg: 'Product Saved.', error: false });
+        }
+    };
+
 
     const addWishlist = () => {
 
-        if (isAuthenticated)
+        if (isAuthenticated) {
             dispatch(addProductToWishlist({ productId: product._id })).finally(() => {
                 setShowToast({ status: true, msg: 'Product Added to Wishlist.', error: false });
             })
-        else
-            setShowToast({ status: true, msg: 'Login/Signup First', error: true });
+        } else {
+            // Retrieve existing products from localStorage
+            const existingProducts = JSON.parse(localStorage.getItem('temporaryWishlist')) || [];
+
+            // Check if the product already exists in localStorage
+            const existingProduct = existingProducts.find((p) => p.productId === product._id);
+
+            if (!existingProduct) {
+                // Update the quantity or take other actions as needed
+                existingProducts.push({ productId: product._id });
+            }
+
+            // Update localStorage
+            localStorage.setItem('temporaryWishlist', JSON.stringify(existingProducts));
+
+            setShowToast({ status: true, msg: 'Product Saved.', error: false });
+        }
     }
 
     // if (error) {

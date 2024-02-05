@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProfileDetails } from './store/slices/user.jsx';
 import UnauthorizedAccess from './component/unauthorized/UnauthorizedAccess.jsx';
 import { useEffect } from 'react';
+import { addProductToCart } from './store/slices/userCart.jsx';
+import { addProductToWishlist } from './store/slices/wishlistCart.jsx';
 
 function App() {
 
@@ -25,13 +27,27 @@ function App() {
   axios.defaults.withCredentials = true;
   const { isAuthenticated, user } = useSelector((state) => state.User)
 
+  if (isAuthenticated) {
+    const temporaryCart = JSON.parse(localStorage.getItem('temporaryCart')) || [];
+    const temporaryWishlist = JSON.parse(localStorage.getItem('temporaryWishlist')) || [];
+
+    for (const product of temporaryCart) {
+      dispatch(addProductToCart({ productId: product.productId, quantity: product.quantity }));
+    }
+    for (const product of temporaryWishlist) {
+      dispatch(addProductToWishlist({ productId: product.productId }));
+    }
+
+    localStorage.removeItem('temporaryCart');
+    localStorage.removeItem('temporaryWishlist');
+  }
   useEffect(() => {
-    dispatch(fetchProfileDetails())
-  }, [])
+    dispatch(fetchProfileDetails())    
+  }, [dispatch])
 
   return (<>
     <Router>
-      <Header />
+      <Header isAuthenticated={isAuthenticated} user={user} />
 
       <div className='container'>
 

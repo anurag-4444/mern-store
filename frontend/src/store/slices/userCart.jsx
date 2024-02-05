@@ -25,7 +25,7 @@ export const getProductToCart = createAsyncThunk(
 export const deleteProductToCart = createAsyncThunk(
     'user/deleteFromCart',
     async (args) => {
-        console.log(args);
+        // console.log(args);
         const response = await axios.delete(`${window.location.origin}/api/v1/me/delete/product/cart`, { data: args }, {
             headers: {
                 'Content-Type': 'application/json'
