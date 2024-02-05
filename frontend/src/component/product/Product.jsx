@@ -135,7 +135,7 @@ const Product = ({ product }) => {
                     <div className="mt-2">
                         <a href="#" onClick={() => (addToCart())} className="btn btn1">Add To Cart</a>
                         <a href="#" onClick={() => (addWishlist())} className="btn btn1"> <i className="fa fa-heart"></i> </a>
-                        <a href={`product/${product._id}`} target="_blank" className="btn btn1"> View </a>
+                        <a href={`product/${product._id}`} className="btn btn1"> View </a>
                     </div>
                 </div>
             </div>
